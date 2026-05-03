@@ -1,57 +1,10 @@
-\documentclass{article}
-\usepackage[UTF8]{ctex}
-\usepackage{mathtools}
-\usepackage{amsthm}
-\usepackage{amsfonts}
-\usepackage{float}
-\usepackage{tikz}
-\usepackage{graphicx}
-\usepackage{indentfirst} % 使首段也缩进
-\usepackage{forest}
-\usepackage{listings}
-\usepackage{xcolor}
-\usepackage{setspace} % 添加以支持 spacing 环境
-% ...existing code...
-\usepackage{setspace} % 添加以支持 spacing 环境
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-\usepackage{caption}
-\usepackage{enumitem} % 支持自定义 enumerate 样式
-\usepackage{animate}  
-\usepackage{listings}
-\usepackage{xcolor}  % 可选，用于自定义颜色
-% --- 代码高亮设置 Start ---
-\usepackage{listings}
-\usepackage{xcolor}
-%\documentclass[12pt]{article}
+\documentclass[12pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{ctex} % 中文支持
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
 
 \begin{document}
-\title{基于LCA生命周期评估模型的临期商品净碳减排量核算与奖励机制}
-\maketitle
-
-\begin{center}
-\section*{摘要}
-\end{center}
-
-\section{问题背景}
-
-顺应全球可持续发展的战略趋势，目前零售领域出现一种能够有效避免食品和日用品浪费，从而实现减排环保的新经济模式。该模式主要借助“应用程序与实体店铺”的全渠道网络，通过深度折扣促销，市场化的价格机制，延长消费周期以刺激消费行为替代废弃处置，垃圾填埋，由此实现减排，减少污染的目的。
-\section{问题复述}
-
-\subsection{任务一}
-
-针对该延长资源利用周期、减少资源浪费的零售模式建立合适的数学模型，用于估计该运营模式的年度净$CO_{2e}$减排量。并论证排放因子与假设选择的合理性。
-
-\subsection{任务二}
-
-将案例数据代入建立的数学模型。在此基础上对主要参数进行敏感度分析，控制变量法，观察关键参数波动对最终结果（净减排量）的影响幅度。
-\subsection{任务三}
-
-通过引入积分奖励机制，鼓励消费者进行消费，在年度净$CO_{2e}$减排模型基础上进一步减少废弃物和$CO_2$排放量
 
 \begin{figure}[htbp]
 \centering
@@ -105,47 +58,5 @@
 \end{tikzpicture}
 \caption{任务一、二、三的逻辑传递与数据闭环关系}
 \end{figure}
-
-\section{问题分析}
-
-本项目
-
-\section{模型假设}
-
-\subsection{预设条件}
-\begin{itemize}
-    \item 给出数据均为事后核算数据。
-    \item 情景均为理想情况，
-\end{itemize}
-
-
-\subsection{各单位商品的$CO_2$平均排放量}%todo列个表格，题目里已给出
-
-
-\section{模型建立与求解}
-
-\subsection{咕咕嘎嘎}%任务一模型
-
-\subsubsection{食品类避免排放因子（取 $2.7\ kg\ CO_2e/kg$）的合理性}
-
-\subsubsection{非食品类避免排放因子（取 $3.0\ kg\ CO_2e/kg$）的合理性}
-
-\subsubsection{冷藏仓储与运输排放因子的合理性}
-
-\subsection{咕咕嘎嘎}%任务二，进行求解及敏感度分析
-
-\subsection{消费奖励机制}%任务三
-
-\section{模型优缺点及展望}
-
-\subsection{优点}
-
-\subsection{不足}
-
-\subsection{模型展望}
-
-
-\section*{附录}
-
 
 \end{document}
