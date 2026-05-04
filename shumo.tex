@@ -175,6 +175,7 @@
 \hline $M$ & 各商品质量 \\
 \hline $F$ & 各商品及环节的排放因子 \\
 \hline $N$ & 消费者年总消费次数 \\
+\hline $R$ & 废弃商品有效利用系数 \\
 \hline
 \end{tabular}
 \label{tab:symbols}
@@ -183,10 +184,59 @@
 
 \section{模型建立与求解}
 
-\subsection{咕咕嘎嘎}%任务一模型
-$E_{avoid = }\Sigma M_i * F_i$
-$E_{add} = E_{add , trans} + E_{add , store} + E_{add , move}= 50 * 20 * 0.2 + M_{food}*F_{food} + N * F_{move}$
-%todo\sigma(商品质量*)
+\subsection{净 $\mathrm{CO}_2\mathrm{e}$ 减排量核算模型及参数合理性分析}
+
+本研究基于生命周期评估（LCA）原则与《GHG Protocol》（温室气体核算体系）的系统边界界定框架，构建该初创公司折扣零售业务的年度净碳减排估算模型。模型的核心逻辑在于量化“避免浪费”这一正向环保行为所规避的碳足迹，并扣除商业运营新引入的额外碳排成本。整体线性目标函数定义如下：
+
+\begin{equation}
+    E_{net} = \frac{E_{avoid} - E_{add}}{1000} \label{eq:net}
+\end{equation}
+
+式中，$E_{net}$ 为年度总净减排量（最终结果除以1000转换为吨 $\mathrm{t}\ \mathrm{CO}_2\mathrm{e}$）；$E_{avoid}$ 为通过销售避免废弃物处置所减少的总碳排放量；$E_{add}$ 为折扣零售运营过程中增加的总额外碳排放量（核算单位均为 $\mathrm{kg}\ \mathrm{CO}_2\mathrm{e}$）。
+
+\subsubsection{通过销售所减少的碳排放量 ($E_{avoid}$) 模型构建}
+
+折扣零售模式的环境效益本质上是对即将成为废弃物的商品进行“救援”。然而，根据题干设定，若无此业务，这批商品中仅有 90\% 会被作为废弃物丢弃，剩余 10\% 原本即会被正常消费。因此，在测算减少的碳排放时，必须引入“废弃物转移率（设定参数 $R_{waste}=0.9$）”作为有效减排折算系数。
+
+按商品质量 $M$ 分类展开，所减少的碳排放量模型公式为：
+\begin{equation}
+    E_{avoid} = \sum_{i} \left( M_i \times R_{waste} \times F_{avoid, i} \right) \label{eq:avoid}
+\end{equation}
+代入本题的食品与非食品两大具体类别，细化为：
+\begin{equation}
+    E_{avoid} = \left( M_{food} \times F_{avoid, food} + M_{nonf} \times F_{avoid, nonf} \right) \times R_{waste}
+\end{equation}
+
+式中，$M_{food}$ 与 $M_{nonf}$ 分别代表食品与非食品类的年度销售总质量；$F_{avoid, i}$ 为对应类别包含上游生产与下游处置的全生命周期排放因子。
+
+\subsubsection{增加的碳排放量 ($E_{add}$) 模型构建}
+
+初创公司的运营活动引入了新的碳排放源，依据系统边界划定，增加的碳排放主要由运输过程（$E_{add, trans}$）、存储过程（$E_{add, store}$）与消费者交通（$E_{add, move}$）三部分构成：
+
+\begin{equation}
+    E_{add} = E_{add, trans} + E_{add, store} + E_{add, move} \label{eq:add}
+\end{equation}
+
+各环节的具体数学表达与物理依据如下：
+\begin{itemize}
+    \item \textbf{运输过程产生的碳排放量 ($E_{add, trans}$)}：只考虑初创公司本地掌控的货车运输。根据题意，每次收集往返50公里，每年20次：
+    \begin{equation}
+        E_{add, trans} = 50 \times 20 \times F_{trans}
+    \end{equation}
+    其中，$F_{trans}$ 为货车单位距离的排放因子。
+    
+    \item \textbf{存储产生的碳排放 ($E_{add, store}$)}：考虑到物理化学性质，非食品类日用品大多在常温下即可长期储存，几乎不产生额外制冷能耗。因此，仅对食品类计入冷库能耗排放（已知平均储存1个月）：
+    \begin{equation}
+        E_{add, store} = M_{food} \times F_{store}
+    \end{equation}
+    其中，$F_{store}$ 为食品存储的单位质量排放因子。
+    
+    \item \textbf{消费者交通产生的碳排放 ($E_{add, move}$)}：假设消费者年总消费次数为 $N$，单次往返产生的微观排放因子为 $F_{move}$。
+    \begin{equation}
+        E_{add, move} = N \times F_{move}
+    \end{equation}
+\end{itemize}
+
 
 
 \subsubsection{食品类避免排放因子（取 $2.7\ kg\ \mathrm{CO}_2e/kg$）的合理性}
