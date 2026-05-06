@@ -29,6 +29,19 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
 
+\lstset{
+    language=Mathematica,
+    basicstyle=\ttfamily\small,          % 基础字体和大小
+    keywordstyle=\color{blue}\bfseries,  % 关键字颜色：蓝色加粗
+    commentstyle=\color{green!50!black}, % 注释颜色：深绿色
+    stringstyle=\color{red},             % 字符串颜色：红色
+    numbers=left,                        % 行号在左侧
+    numberstyle=\tiny\color{gray},       % 行号样式
+    frame=single,                        % 加边框
+    breaklines=true,                     % 自动折行
+    backgroundcolor=\color{gray!5}       % 背景色：浅灰色
+}
+
 \begin{document}
 \title{基于LCA生命周期评估模型的临期商品净碳减排量核算与奖励机制}
 \maketitle
@@ -277,6 +290,29 @@
 
 
 \section*{附录}
+\subsection*{源代码}
+\begin{lstlisting}
+Rwaste = 0.9;
+Favoidfood = 2.7;
+Favoidnonf = 3.0;
+Fstore = 0.05;
+Ftrans = 0.2;
+Fmove = 238.6 * 10^-3;
+Mfood = 50000;
+Mnonf = 10000;
+NN = 10000;
 
+Eavoid = (Mfood*Favoidfood + Mnonf*Favoidnonf)*Rwaste
+
+Eaddtrans = 50*20*Ftrans
+
+Eaddstore = Mfood*Fstore
+
+Eaddmove = NN*Fmove
+
+Eadd = Eaddtrans + Eaddstore + Eaddmove
+
+Enet = (Eavoid - Eadd)/1000
+\end{lstlisting}
 
 \end{document}
