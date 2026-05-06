@@ -230,6 +230,8 @@
     \end{equation}
 \end{itemize}
 
+
+
 \subsubsection{食品类避免排放因子（取 $F_{avoid, food} = 2.7\ \mathrm{kg\ CO}_2e/\mathrm{kg}$）的合理性}
 
 该取值参考了国际农业与食品系统可持续性研究机构 Blonk 关于剩余食物拯救的最新实证研究。研究表明，通过全生命周期评估（LCA），每避免浪费一千克食物，平均可减少 $2.7\ \mathrm{kg}$ 的二氧化碳当量排放。该因子具备权威的学术与行业数据支撑，能够科学、客观地反映拯救食品类盲盒所产生的直接减排效益。
@@ -245,6 +247,12 @@
 \subsubsection{消费者自提交通排放因子（取 $F_{move} = 238.6\ \mathrm{g\ CO}_2e/\mathrm{km}$）的合理性}
 
 消费者前往实体门店自提的“最后一公里”出行方式具有多样性。本研究合理假设消费者的出行结构主要由“公共交通”与“零碳出行（如步行、自行车骑行）”构成，且两者比例各占 $50 \%$。基于广州市公共交通（以公交车辆综合耗能核算）每千米碳排放的平均水平（约 $477.2\ \mathrm{g\ CO}_2e/\mathrm{km}$），按 $50 \%$ 比例折算后，得出综合自提出行排放因子为 $238.6\ \mathrm{g\ CO}_2e/\mathrm{km}$。这一处理方式充分考量了短途自提场景下的真实绿色出行特征，使参数取值更为严密、合理。
+
+\subsubsection{总览净 $\mathrm{CO}_2\mathrm{e}$ 减排综合数学方程}
+
+\begin{equation}
+    E_{net} = \frac{\left[ \left( M_{food} F_{avoid, food} + M_{nonf} F_{avoid, nonf} \right) R_{waste} \right] - \left[ D_{total} F_{trans} + M_{food} F_{store} + N F_{move} \right]}{1000} \label{eq:final_net}
+\end{equation}
 
 
 \subsection{数据案例代入核算及关键参数敏感度分析}%任务二，进行求解及敏感度分析
