@@ -55,39 +55,33 @@
 
 \begin{figure}[htbp]
 \centering
-% scale=0.85 是整体缩放比例，如果仍觉得大，可修改为 0.75 等更小数值
+
 \begin{tikzpicture}[scale=0.85, transform shape, node distance=1cm and 1cm]
 
-% 定义紧凑型方框样式 (使用 text width 强制文本换行，让方框变窄)
 \tikzstyle{mainbox} =[rectangle, rounded corners, text width=3.2cm, minimum height=1.2cm, text centered, draw=black, thick, fill=blue!10, font=\small\bfseries]
 \tikzstyle{subbox} =[rectangle, text width=2.8cm, minimum height=0.6cm, text centered, draw=gray, fill=white, font=\footnotesize]
 \tikzstyle{arrow} =[thick, ->, >=stealth, draw=blue!70!black]
 \tikzstyle{dashed_arrow} =[thick, dashed, ->, >=stealth, draw=red!70!black]
 
-% 绘制主任务节点
 \node (task1)[mainbox] {任务 1：数学模型\\ (理论框架)};
 \node (task2)[mainbox, below left=1.8cm and -0.2cm of task1] {任务 2：敏感性分析\\ (实证验证)};
 \node (task3)[mainbox, below right=1.8cm and -0.2cm of task1] {任务 3：消费者积分\\ (商业转化)};
 
-% 绘制任务1的子节点
 \node (t1_sub1)[subbox, above left=0.6cm and -1.2cm of task1] {避免与额外排放};
 \node (t1_sub2)[subbox, above right=0.6cm and -1.2cm of task1] {因子与假设论证};
 \draw [arrow] (t1_sub1) -- (task1);
 \draw [arrow] (t1_sub2) -- (task1);
 
-% 绘制任务2的子节点
 \node (t2_sub1) [subbox, below=0.5cm of task2] {基准数据代入核算};
 \node (t2_sub2)[subbox, below=0.2cm of t2_sub1] {控制变量扰动测试};
 \draw [arrow] (task2) -- (t2_sub1);
 \draw [arrow] (t2_sub1) -- (t2_sub2);
 
-% 绘制任务3的子节点
 \node (t3_sub1)[subbox, below=0.5cm of task3] {微观单件碳排映射};
 \node (t3_sub2)[subbox, below=0.2cm of t3_sub1] {动态转化系数设计};
 \draw [arrow] (task3) -- (t3_sub1);
 \draw [arrow] (t3_sub1) -- (t3_sub2);
 
-% 绘制任务之间的关联箭头与文字说明 (字号改为 scriptsize 避免拥挤)
 \draw [arrow] (task1) -| node[anchor=east, align=center, font=\scriptsize, text=blue!80!black, yshift=0.3cm] {提供方程式\\与宏观参数} (task2);
 
 \draw [arrow] (task1) -| node[anchor=west, align=center, font=\scriptsize, text=blue!80!black, yshift=0.3cm] {提供微观单品\\减排计算逻辑} (task3);
@@ -96,7 +90,6 @@
 
 \draw [dashed_arrow] (task2.north) -- node[anchor=east, align=center, font=\scriptsize, text=red!80!black] {验证鲁棒性} (task1.south -| task2.north);
 
-% 绘制整体虚线背景框
 \begin{scope}[on background layer]
     \node[rectangle, draw=gray, dashed, fill=gray!5, fit=(t1_sub1) (t1_sub2) (task1) (t2_sub2) (t3_sub2), inner sep=0.4cm] (bg) {};
     \node[anchor=north, font=\normalsize\bfseries, text=gray!80] at (bg.north) {临期折扣零售净碳排核算逻辑图};
@@ -139,11 +132,11 @@
 \end{itemize}
 
 
-\subsection{各单位商品的$\mathrm{CO}_2$平均排放量}
+\subsection{各单位商品及各生产因素的排放因子}
 
 \begin{table}[htbp]
 \centering
-\caption{各单位商品的$\mathrm{CO}_2$平均排放量}
+\caption{各单位商品及各生产因素的排放因子}
 \begin{tabular}{|c|c|c|}
 \hline 排放项 & 单位 & 平均排放量 ($\mathrm{kg\ CO_2e}$) \\
 \hline 小型货车 & $\mathrm{km} \cdot$辆 & $0.2$ \\
@@ -156,7 +149,7 @@
 \end{tabular}
 \label{tab:emission_factors}
 \end{table}
-
+%消费者自提排放因子取广州市公共交通每千米碳排放平均值的一半
 
 \section{物理量符号含义}%后面整理成表格
 
@@ -240,11 +233,16 @@
 
 
 \subsubsection{食品类避免排放因子（取 $2.7\ kg\ \mathrm{CO}_2e/kg$）的合理性}
+
+根据 Blonk 近期关于剩余食物拯救的研究，该数值为$2.7 kg CO2e/kg$。
 \subsubsection{非食品类避免排放因子（取 $3.0\ kg\ \mathrm{CO}_2e/kg$）的合理性}
 
-\subsubsection{冷藏仓储与运输排放因子的合理性}
+取各商品平均值
+\subsubsection{冷藏仓储$0.05\ kg\ \mathrm{CO}_2e/month$与运输排放因子的合理性$0.2\ kg\ \mathrm{CO}_2e/km$}
 
-\subsection{咕咕嘎嘎}%任务二，进行求解及敏感度分析
+\subsubsection{消费者自提交通排放因子的合理性$238.6 \ g\ \mathrm{CO}_2e/km$}
+
+\subsection{数据案例代入核算及关键参数敏感度分析}%任务二，进行求解及敏感度分析
 
 \subsection{消费奖励机制}%任务三
 
