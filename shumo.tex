@@ -28,6 +28,7 @@
 \usepackage{ctex} % 中文支持
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\lstset{extendedchars=false}
 
 \lstset{
     language=Mathematica,
@@ -477,6 +478,7 @@ E_{net}   &= (148{,}500 - 3{,}180) / 1000 = 145.32\ \mathrm{t\ CO_2e}
 作者在使用上述生成式人工智能工具后，对生成的所有内容进行了严格的审查、修改和事实核查。作者对本文的最终内容、数据准确性及所有研究结论承担全部责任。
 
 \subsection*{源代码}
+\subsubsection*{mathematica 源代码}
 \begin{lstlisting}
 Rwaste = 0.9;
 Favoidfood = 2.7;
@@ -500,5 +502,8 @@ Eadd = Eaddtrans + Eaddstore + Eaddmove
 
 Enet = (Eavoid - Eadd)/1000
 \end{lstlisting}
+
+\subsubsection*{Python 源代码}
+\lstinputlisting{sensitivity_analysis.py}
 
 \end{document}
