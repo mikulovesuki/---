@@ -16,7 +16,6 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{caption}
-\usepackage{booktabs}
 \usepackage{enumitem} % 支持自定义 enumerate 样式
 \usepackage{animate}  
 \usepackage{listings}
@@ -29,6 +28,7 @@
 \usepackage{ctex} % 中文支持
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds}
+\lstset{extendedchars=false}
 
 \lstset{
     language=Mathematica,
@@ -47,9 +47,29 @@
 \title{基于LCA生命周期评估模型的临期商品净碳减排量核算与奖励机制}
 \maketitle
 
-\begin{center}
-\section*{摘要}
-\end{center}
+\begin{abstract}
+% 强制将摘要正文字体调大为四号字（标准通常为小四，四号更大）
+\zihao{4} 
+% 增加段落之间的垂直间距
+\setlength{\parskip}{0.6em} 
+% 将行距调大至1.6倍
+\begin{spacing}{1.4} 
+
+顺应全球可持续发展的战略趋势，临期商品折扣零售作为一种新型经济模式，在减少资源浪费与降低温室气体排放方面展现出巨大潜力。本文聚焦于该商业模式的环境效益量化与消费者行为激励，基于生命周期评估（LCA）理论，构建了系统的净碳减排量核算模型与阶梯式积分奖励机制，旨在为可持续零售的商业化推广提供科学的量化评估框架与决策支撑。
+
+\textbf{针对任务一的净碳减排量核算问题}，本文确立了以“避免浪费而减少的碳排放量”扣减“折扣零售额外产生的碳排放量”的整体线性核算逻辑。依据《GHG Protocol》严格界定系统边界，将商品划分为食品与非食品两大类。在减少排放的计算中，引入0.9的废弃商品有效利用系数；在额外排放的计算中，全面考量了本地物流运输、冷链仓储及消费者自提交通（加权公交与步行比例）的碳排成本。同时，参考国际权威机构Blonk的实证研究，科学论证了全生命周期排放因子的取值合理性。将案例基准数据代入模型，精准测算出该初创公司年度净碳减排量高达145.32吨 $\text{CO}_{2\text{e}}$，相当于植树2400余棵的年均固碳量，充分验证了该模式的显著环保效益。
+
+\textbf{针对任务二的关键参数敏感度分析问题}，本文采用单变量敏感性分析（即控制变量法），全面检验了底层核算标准的弹性与模型的稳健性。分别对避免排放因子（$\pm 20\%$）、废弃物转移率（0.70至0.95）、运输参数（距离与频次 $\pm 30\%$）以及消费者交通排放因子（公交占比30\%至70\%）进行扰动测试。实证结果表明，避免排放因子与废弃物转移率是影响总体减排效益的主导因素，当其波动范围在 $\pm 25\%$ 时，净减排量的变化幅度仅约 $\pm 20\%$；而物流与交通环节的边际影响较小。整体模型在多重情景扰动下表现出极强的鲁棒性与可靠性。
+
+\textbf{针对任务三的消费者积分激励系统设计问题}，本文创新性地借鉴经济学中的“阶梯定价”思想，构建了“阶梯式碳积分加速激励模型”。该机制以单次消费的真实碳减排贡献为等价映射基准，将消费者历史累计减排量划分为基础激励、加速激励与高度激励三个进阶阶段，分别赋予1.0、1.2及1.5倍的动态积分转化率。为打通商业闭环，设计了积分兑换特定环保周边与直接按汇率抵扣现金的双重回馈路径。该机制有效形成了“环保行为—量化减排—积分获取—经济回馈”的正向飞轮效应，不仅精准量化了微观消费行为的环境价值，预期还可扩大平台销售规模 $15\% \sim 30\%$，实现商业利润与环境效益的双赢。
+
+综合而言，本文构建的“核算-验证-激励”三位一体数学模型，不仅为临期商品流转中的碳减排提供了严谨的数理刻画，更为初创企业的可持续发展战略制定提供了极具落地价值的商业转化方案。
+
+\vspace{1em}
+\noindent \textbf{关键词：} 生命周期评估（LCA）；碳排放核算；敏感性分析；阶梯积分激励；商业闭环；可持续发展
+
+\end{spacing}
+\end{abstract}
 
 \section{问题背景}
 
@@ -180,6 +200,41 @@
 
 \textbf{积分商业闭环设计：} \\
 为了使该积分系统具备真实的商业吸引力与落地可行性，本研究还将进一步明确积分的使用路径。消费者所获取的环保积分，不仅可用于在初创公司的应用程序或实体店铺内直接兑换特定商品（如环保周边产品、特定生活日用品等），还可在后续购买折扣临期商品时按一定汇率直接抵扣现金。这一设计彻底打通了减排贡献—积分获取—经济回馈的商业闭环。从消费层面助力碳减排。
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    >=Stealth,
+    node distance=2.5cm and 2cm,
+    mainbox/.style={rectangle, rounded corners=3mm, draw=black!70, thick, text width=3.8cm, minimum height=1.5cm, text centered, font=\large\bfseries},
+    subbox/.style={rectangle, rounded corners=1mm, draw=gray!50, fill=gray!5, dashed, text width=3.4cm, minimum height=1.5cm, text centered, font=\footnotesize},
+    arrow/.style={->, thick, draw=blue!70!black},
+    feedback/.style={->, thick, dashed, draw=red!70!black}
+]
+
+\node (step1)[mainbox, fill=green!10, draw=green!60!black] {1. 减排贡献\\(Emission Reduction)};
+\node (step2)[mainbox, fill=blue!10, draw=blue!60!black, right=of step1] {2. 积分获取\\(Points Acquisition)};
+\node (step3)[mainbox, fill=orange!10, draw=orange!60!black, right=of step2] {3. 经济回馈\\(Economic Reward)};
+\node (sub1)[subbox, below=0.5cm of step1] {购买临期折扣商品\\严格核算单件商品\\净 $\mathrm{CO}_2\mathrm{e}$ 减排量};
+\node (sub2)[subbox, below=0.5cm of step2] {阶梯式碳积分模型\\依据历史累计贡献\\触发 1.0/1.2/1.5 倍率};
+\node (sub3)[subbox, below=0.5cm of step3] {兑换特定环保周边\\或在后续购买中\\按汇率直接抵扣现金};
+\draw [gray!70, thick] (step1) -- (sub1);
+\draw [gray!70, thick] (step2) -- (sub2);
+\draw [gray!70, thick] (step3) -- (sub3);
+\draw [arrow] (step1) -- node[above, font=\footnotesize, text=blue!80!black] {量化环保效益} (step2);
+\draw [arrow] (step2) -- node[above, font=\footnotesize, text=blue!80!black] {发放动态积分} (step3);
+\draw[feedback] (sub3.south) |- ++(0,-1cm) -| node[pos=0.25, above, font=\small\bfseries, text=red!80!black] {提升平台用户黏性，刺激持续性的绿色消费行为 (打通商业闭环)} (sub1.south);
+\begin{scope}[on background layer]
+    \node[rectangle, draw=gray!30, fill=gray!2, rounded corners, fit=(step1) (step3) (sub1) (sub3) (sub3.south |- {0,-4.5cm}), inner sep=0.6cm] (bg) {};
+    \node[anchor=north west, font=\bfseries, text=gray!60] at (bg.north west) {积分激励系统逻辑图};
+\end{scope}
+
+\end{tikzpicture}
+\caption{基于阶梯积分机制的“减排—积分—回馈”商业闭环流程图}
+\label{fig:point_system}
+\end{figure}
+
+
 \section{模型假设}
 
 \subsection{预设条件}
@@ -203,6 +258,7 @@
 \hline 预防食物浪费 & $\mathrm{kg}$ & $2.5-3$ \\
 \hline 非食品类商品 & $\mathrm{kg}$ & $1.0-5.0$ \\
 \hline 食品填埋处置 & $\mathrm{kg}$ & $0.5-1.5$ \\
+\hline 废弃商品有效利用系数 & 无量纲& $0.70-0.95$ \\
 \hline
 \end{tabular}
 \label{tab:emission_factors}
@@ -380,103 +436,12 @@ E_{net}   &= (148{,}500 - 3{,}180) / 1000 = 145.32\ \mathrm{t\ CO_2e}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.95\linewidth]{7f685b22205e0bfb2945010b0086c9c1.png}
+\includegraphics[width=0.9\linewidth]{7f685b22205e0bfb2945010b0086c9c1.png}
 \caption{关键参数敏感性分析结果示意图。图中展示了四组敏感性测试结果：避免排放因子$F_{avoid}$、废弃物转移率$R_{waste}$、运输参数以及消费者交通排放因子$F_{move}$的扰动对年度净减排量$E_{net}$的影响。横坐标表示参数变化情景，纵坐标表示对应的净减排量$E_{net}$（单位：吨$\mathrm{CO_2e}$）}
 \label{fig:sensitivity_analysis}
 \end{figure}
 
-
-
 \subsection{消费奖励机制}%任务三
-
-\subsubsection{核心规则：基于避免排放的1:1碳积分}
-
-本模型量化了折扣零售通过废弃物转移率 $R=0.90$ 实现的避免排放$E_{\text{avoid}}=148,\!500\ \mathrm{kg\,CO_2e/年}$。积分规则直接以该避免排放量为锚：
-
-\begin{itemize}
-    \item \textbf{基础兑换率}：每避免 $1\ \mathrm{kg\,CO_2e}$ 排放，消费者获得 $1$ 个碳积分。
-            该兑换率确保积分的发放与实际减排贡献实现等价映射，增强消费者对环保行为的认同感。
-    \item \textbf{分类系数}：
-         食品类系数 $1.0$（基准）；非食品类系数 $1.2$（上浮）。
-         其合理性在于非食品（塑料、洗护用品等）的废弃处置碳足迹更高，给予额外激励可引导消费结构优化。
-    \item \textbf{阶梯奖励}（月累计基础积分）：
-         $\geq 50$ 积分——额外奖励 $+10\%$；
-         $\geq 120$ 积分——额外奖励 $+20\%$。
-         阶梯设计鼓励高频消费，提升月均购买次数，从而放大总避免排放量。
-    \item \textbf{月积分封顶}：$500$ 积分/月，防止积分超发，保持财务可持续。
-\end{itemize}
-
-\subsubsection{积分计算示例}
-
-典型消费者月购分析（与任务一、二模型参数一致）：月购食品 $5\ \mathrm{kg}$、非食品 $1\ \mathrm{kg}$，$R=0.90$。
-
-\begin{itemize}
-    \item 避免排放：
-    \[
-    \text{食品}：5\times2.7\times0.9=12.15\ \mathrm{kg\,CO_2e},\quad
-    \text{非食品}：1\times3.0\times0.9=2.70\ \mathrm{kg\,CO_2e}
-    \]
-    \item 基础积分：食品 $12.15$ 分，非食品 $2.70\times1.2=3.24$ 分，合计 $15.39$ 分。
-    \item 未触发阶梯（$<50$），月总积分 $=15.39$。
-\end{itemize}
-
-若用户升级为高频消费（月购扩大3倍），月基础积分约 $46$，触发阶梯奖励后 $\approx51$ 分，可兑换 $5$ 元折扣券。表 \ref{tab:consumer_credit_example} 给出了更详细的月度积分核算。
-
-\begin{table}[htbp]
-\centering
-\caption{典型消费者月度积分核算示例}
-\label{tab:consumer_credit_example}
-\begin{tabular}{lcccc}
-\toprule
-消费类别 & 购买量(kg) & 排放因子 & 避免排放量(kg\,CO$_2$e) & 基础积分 \\
-\midrule
-食品（零食/饮料） & 2.5 & 2.7 & 6.75 & 6.75 \\
-食品（乳制品）   & 1.5 & 2.7 & 4.05 & 4.05 \\
-食品（烘焙）     & 1.0 & 2.7 & 2.70 & 2.70 \\
-非食品（洗护用品）& 1.0 & 3.0 & 3.00 & $3.00\times1.2=3.60$ \\
-\midrule
-合计             & 6.0  & ---  & 16.50 & 17.10 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsubsection{与模型的协同：提升 $R$ 的激励闭环}
-
-本模型最核心的政策杠杆是废弃物转移率 $R$。积分体系通过行为干预，推动 $R$ 从基准值 $0.90$ 向上提升：
-
-\begin{itemize}
-    \item 消费者因积分奖励更倾向购买原本可能被遗弃的临期食品/非食品，零售商库存周转加快，实际废弃物减少，$R$ 提升。
-    \item 敏感性分析显示，$R$ 每提升 $0.01$，年度净减排增量约 $1.4\ \mathrm{t\,CO_2e}$。若积分体系使 $R$ 升至 $0.95$，额外减排约 $7\ \mathrm{t\,CO_2e/年}$，相当于约 $780$ 棵成年乔木的年碳汇量。
-\end{itemize}
-
-因此，积分机制并非单纯的“返利”，而是直接嵌入节能减排的正反馈路径，在量化模型中具有可论证的减排增量。
-
-\subsubsection{兑换方案与碳定价衔接}
-
-表 \ref{tab:credit_redeem} 给出了四级兑换方案，其隐含碳价格保持在$100\text{--}125\ \text{元}/\mathrm{t\,CO_2}$，与当前国内碳试点市场价（约 $70\text{--}100$ 元）接近。
-
-\begin{table}[htbp]
-\centering
-\caption{碳积分兑换方案}
-\label{tab:credit_redeem}
-\begin{tabular}{cll}
-\toprule
-所需积分 & 兑换内容 & 对应碳减排价值 \\
-\midrule
-50 积分  & 兑换5元无门槛折扣券  & 约50\,kg\,CO$_2$e \\
-100 积分 & 兑换12元折扣券 + “低碳达人”电子证书 & 约100\,kg\,CO$_2$e \\
-200 积分 & 兑换25元折扣券 + 限量环保周边 & 约200\,kg\,CO$_2$e \\
-500 积分 & 代捐赠碳抵消项目+个人年度碳足迹报告 & 约0.5吨CO$_2$e \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-根据分层估算（低频、中频、高频消费者分别占比约60\%、30\%、10\%），年度兑换总成本约占折扣店年流水的 $0.3\%\sim1\%$，企业可承受，并且通过滞销品折扣清仓带来的损失减少可以完全覆盖。
-
-\subsubsection{小结}
-
-本积分体系直接以模型中的避免排放量为积分锚点，兑换方案与现行碳交易市场接轨，在激励消费者参与减排的同时，通过提高实际废弃物转移率 $R$ 产生可量化的额外碳减排，兼具科学性和商业可行性。
-
 
 
 \section{模型优缺点及展望}
@@ -505,7 +470,9 @@ E_{net}   &= (148{,}500 - 3{,}180) / 1000 = 145.32\ \mathrm{t\ CO_2e}
 在本文的研究与撰写过程中，作者使用了由 Google 开发的 Gemini 3.1 Pro 模型以及由深度求索（DeepSeek）开发的 DeepSeek 4 Pro 模型。
 具体而言，Gemini 3.1 Pro ，DeepSeek 4 Pro 模型主要被用于 \textbf{辅助写作文章润色}
 作者在使用上述生成式人工智能工具后，对生成的所有内容进行了严格的审查、修改和事实核查。作者对本文的最终内容、数据准确性及所有研究结论承担全部责任。
+
 \subsection*{源代码}
+\subsubsection*{mathematica 源代码}
 \begin{lstlisting}
 Rwaste = 0.9;
 Favoidfood = 2.7;
@@ -529,5 +496,8 @@ Eadd = Eaddtrans + Eaddstore + Eaddmove
 
 Enet = (Eavoid - Eadd)/1000
 \end{lstlisting}
+
+\subsubsection*{Python 源代码}
+\lstinputlisting{sensitivity_analysis.py}
 
 \end{document}

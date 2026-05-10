@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-敏感度分析脚本：生成 sensitivity_analysis.png 图表及表格数据
-用法：python sensitivity_analysis.py
-输出：D:/sensitivity_analysis.png
-"""
+#
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
