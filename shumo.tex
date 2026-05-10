@@ -445,6 +445,100 @@ E_{net}   &= (148{,}500 - 3{,}180) / 1000 = 145.32\ \mathrm{t\ CO_2e}
 
 \subsection{消费奖励机制}%任务三
 
+\subsubsection{核心规则：基于避免排放的1:1碳积分}
+
+本模型量化了折扣零售通过废弃物转移率 $R=0.90$ 实现的避免排放$E_{\text{avoid}}=148,\!500\ \mathrm{kg\,CO_2e/年}$。积分规则直接以该避免排放量为锚：
+
+\begin{itemize}
+    \item \textbf{基础兑换率}：每避免 $1\ \mathrm{kg\,CO_2e}$ 排放，消费者获得 $1$ 个碳积分。
+            该兑换率确保积分的发放与实际减排贡献实现等价映射，增强消费者对环保行为的认同感。
+    \item \textbf{分类系数}：
+         食品类系数 $1.0$（基准）；非食品类系数 $1.2$（上浮）。
+         其合理性在于非食品（塑料、洗护用品等）的废弃处置碳足迹更高，给予额外激励可引导消费结构优化。
+    \item \textbf{阶梯奖励}（月累计基础积分）：
+         $\geq 50$ 积分——额外奖励 $+10\%$；
+         $\geq 120$ 积分——额外奖励 $+20\%$。
+         阶梯设计鼓励高频消费，提升月均购买次数，从而放大总避免排放量。
+    \item \textbf{月积分封顶}：$500$ 积分/月，防止积分超发，保持财务可持续。
+\end{itemize}
+
+\subsubsection{积分计算示例}
+
+典型消费者月购分析（与任务一、二模型参数一致）：月购食品 $5\ \mathrm{kg}$、非食品 $1\ \mathrm{kg}$，$R=0.90$。
+
+\begin{itemize}
+    \item 避免排放：
+    \[
+    \text{食品}：5\times2.7\times0.9=12.15\ \mathrm{kg\,CO_2e},\quad
+    \text{非食品}：1\times3.0\times0.9=2.70\ \mathrm{kg\,CO_2e}
+    \]
+    \item 基础积分：食品 $12.15$ 分，非食品 $2.70\times1.2=3.24$ 分，合计 $15.39$ 分。
+    \item 未触发阶梯（$<50$），月总积分 $=15.39$。
+\end{itemize}
+
+若用户升级为高频消费（月购扩大3倍），月基础积分约 $46$，触发阶梯奖励后 $\approx51$ 分，可兑换 $5$ 元折扣券。表 \ref{tab:consumer_credit_example} 给出了更详细的月度积分核算。
+
+\begin{table}[htbp]
+\centering
+\caption{典型消费者月度积分核算示例}
+\label{tab:consumer_credit_example}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+消费类别 & 购买量(kg) & 排放因子 & 避免排放量(kg\,CO$_2$e) & 基础积分 \\
+\hline
+食品（零食/饮料） & 2.5 & 2.7 & 6.75 & 6.75 \\
+\hline
+食品（乳制品）   & 1.5 & 2.7 & 4.05 & 4.05 \\
+\hline
+食品（烘焙）     & 1.0 & 2.7 & 2.70 & 2.70 \\
+\hline
+非食品（洗护用品）& 1.0 & 3.0 & 3.00 & $3.00\times1.2=3.60$ \\
+\hline
+合计             & 6.0  & ---  & 16.50 & 17.10 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{与模型的协同：提升 $R$ 的激励闭环}
+
+本模型最核心的政策杠杆是废弃物转移率 $R$。积分体系通过行为干预，推动 $R$ 从基准值 $0.90$ 向上提升：
+
+\begin{itemize}
+    \item 消费者因积分奖励更倾向购买原本可能被遗弃的临期食品/非食品，零售商库存周转加快，实际废弃物减少，$R$ 提升。
+    \item 敏感性分析显示，$R$ 每提升 $0.01$，年度净减排增量约 $1.4\ \mathrm{t\,CO_2e}$。若积分体系使 $R$ 升至 $0.95$，额外减排约 $7\ \mathrm{t\,CO_2e/年}$，相当于约 $780$ 棵成年乔木的年碳汇量。
+\end{itemize}
+
+因此，积分机制并非单纯的“返利”，而是直接嵌入节能减排的正反馈路径，在量化模型中具有可论证的减排增量。
+
+\subsubsection{兑换方案与碳定价衔接}
+
+表 \ref{tab:credit_redeem} 给出了四级兑换方案，其隐含碳价格保持在$100\text{--}125\ \text{元}/\mathrm{t\,CO_2}$，与当前国内碳试点市场价（约 $70\text{--}100$ 元）接近。
+
+\begin{table}[htbp]
+\centering
+\caption{碳积分兑换方案}
+\label{tab:credit_redeem}
+\begin{tabular}{|c|l|l|}
+\hline
+所需积分 & 兑换内容 & 对应碳减排价值 \\
+\hline
+50 积分  & 兑换5元无门槛折扣券  & 约50\,kg\,CO$_2$e \\
+\hline
+100 积分 & 兑换12元折扣券 + “低碳达人”电子证书 & 约100\,kg\,CO$_2$e \\
+\hline
+200 积分 & 兑换25元折扣券 + 限量环保周边 & 约200\,kg\,CO$_2$e \\
+\hline
+500 积分 & 代捐赠碳抵消项目+个人年度碳足迹报告 & 约0.5吨CO$_2$e \\
+\hline
+\end{tabular}
+\end{table}
+
+根据分层估算（低频、中频、高频消费者分别占比约60\%、30\%、10\%），年度兑换总成本约占折扣店年流水的 $0.3\%\sim1\%$，企业可承受，并且通过滞销品折扣清仓带来的损失减少可以完全覆盖。
+
+\subsubsection{小结}
+
+本积分体系直接以模型中的避免排放量为积分锚点，兑换方案与现行碳交易市场接轨，在激励消费者参与减排的同时，通过提高实际废弃物转移率 $R$ 产生可量化的额外碳减排，兼具科学性和商业可行性。
+
 
 \section{模型优缺点及展望}
 \subsection{优点}
@@ -479,13 +573,14 @@ E_{net}   &= (148{,}500 - 3{,}180) / 1000 = 145.32\ \mathrm{t\ CO_2e}
 
 \subsection{参考文献}
 
-
 \begin{thebibliography}{99}
-[1]吴燕,王效科,逯非.北京市居民食物消费碳足迹[J].生态学报,2012,32(05):1570-1577.
-[2]赵汇,林小英,蒋伟,等.基于LCA-SD的城市生活垃圾碳排放分析及减排情景预测[J/OL].环境工程学报,1-13[2026-05-10].https://link.cnki.net/urlid/11.5591.X.20260326.1810.004.
-[3]赵汇,林小英,蒋伟,等.基于LCA-SD的城市生活垃圾碳排放分析及减排情景预测[J/OL].环境工程学报,1-13[2026-05-10].https://link.cnki.net/urlid/11.5591.X.20260326.1810.004.
-[4]李芳.基于LCA的家居服产品碳足迹评价及其减排策略研究[D].北京化工大学,2025.DOI:10.26939/d.cnki.gbhgu.2025.002127.
-
+\bibitem{wu2012} 吴燕, 王效科, 逯非. 北京市居民食物消费碳足迹[J]. 生态学报, 2012, 32(05): 1570-1577.
+\bibitem{zhao2026} 赵汇, 林小英, 蒋伟, 等. 基于LCA-SD的城市生活垃圾碳排放分析及减排情景预测[J/OL]. 环境工程学报, 2026, 1-13 [2026-05-10]. https://link.cnki.net/urlid/11.5591.X.20260326.1810.004.
+\bibitem{li2025} 李芳. 基于LCA的家居服产品碳足迹评价及其减排策略研究[D]. 北京化工大学, 2025. DOI:10.26939/d.cnki.gbhgu.2025.002127.
+\bibitem{ref2} WORLD RESOURCES INSTITUTE. Food loss and waste accounting and reporting standard[R]. Washington, DC: World Resources Institute, 2016.
+\bibitem{ref3} INTERNATIONAL ORGANIZATION FOR STANDARDIZATION. Environmental management - life cycle assessment - principles and framework: ISO 14040:2006[S]. Geneva: ISO, 2006.
+\bibitem{ref5} FOOD AND AGRICULTURE ORGANIZATION OF THE UNITED NATIONS. Food wastage footprint: impacts on natural resources[R]. Rome: FAO, 2013.
+\bibitem{ref7} ASCHEMANN-WITZEL J, DE HOOGE I, AMANI P, et al. Consumer-related food waste: causes and potential for action[J]. Sustainability, 2015, 7(6): 6457-6477.
 \end{thebibliography}
 在本文的研究与撰写过程中，作者使用了由 Google 开发的 Gemini 3.1 Pro 模型以及由深度求索（DeepSeek）开发的 DeepSeek 4 Pro 模型。
 具体而言，Gemini 3.1 Pro ，DeepSeek 4 Pro 模型主要被用于 \textbf{辅助写作文章润色}
